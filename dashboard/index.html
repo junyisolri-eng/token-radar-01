@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Launch Radar — radar-2.1</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="mast">
+    <h1>Token Launch Radar</h1>
+    <p class="sub">Which pre-token protocol would be worth the most if it launched a token today — and how to farm it first.</p>
+  </div>
+  <dl class="stats" id="stats">
+    <div><dt>Ranked</dt><dd id="stat-ranked">–</dd></div>
+    <div><dt>Watchlist</dt><dd id="stat-watch">–</dd></div>
+    <div><dt>Snapshot</dt><dd id="stat-date">–</dd></div>
+    <div><dt>Top implied value</dt><dd id="stat-top">–</dd></div>
+  </dl>
+</header>
+
+<nav class="tabs" aria-label="Views">
+  <button type="button" id="tab-board" class="tab on" data-view="board">Pre-token board</button>
+  <button type="button" id="tab-live" class="tab" data-view="live">Live tokens · already trading</button>
+</nav>
+
+<section class="controls" aria-label="Filters">
+  <label class="ctl">Search
+    <input type="search" id="q" placeholder="Protocol, chain, category…" autocomplete="off">
+  </label>
+  <label class="ctl">Category
+    <select id="cat"><option value="">All categories</option></select>
+  </label>
+  <label class="ctl">Sort by
+    <select id="sort">
+      <option value="rank">Rank (implied value)</option>
+      <option value="tvl">TVL, high to low</option>
+      <option value="growth">7-day TVL change</option>
+      <option value="age">Age, oldest first</option>
+      <option value="name">Name A–Z</option>
+    </select>
+  </label>
+  <label class="check"><input type="checkbox" id="watch"> Watchlist only</label>
+  <p class="count" id="count" aria-live="polite"></p>
+</section>
+
+<main class="layout">
+  <div class="tablewrap">
+    <table id="board">
+      <thead><tr id="headrow"></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="empty" id="empty" hidden>No protocol matches these filters. Clear the search or pick another category.</p>
+  </div>
+
+  <aside class="detail" id="detail" aria-label="Protocol detail">
+    <p class="detail-hint" id="detail-hint">Select a row to see its value model and its six farm steps.</p>
+    <div id="detail-body" hidden>
+      <p class="kicker" id="d-kicker"></p>
+      <h2 id="d-name"></h2>
+      <p class="d-meta" id="d-meta"></p>
+      <dl class="model" id="d-model"></dl>
+      <h3>Farm plan</h3>
+      <ol class="steps" id="d-steps"></ol>
+      <p class="d-note" id="d-note"></p>
+    </div>
+  </aside>
+</main>
+
+<footer class="foot">
+  <p><strong>How the value is worked out.</strong> Implied value = TVL × the median market-cap/TVL of live-token protocols in the same category (taken from this snapshot, never from a name) × a growth multiplier from the 7-day TVL change (capped at +100%) × a chain multiplier (more chains, wider reach) × a maturity multiplier (surviving longer counts more) × an already-trading correction (1, except USDD and Bittensor dTAO, whose tokens were verified to already trade — their implied value is a small residual and they sit at the bottom of the board). A protocol is listed as pre-token when its record carries no token — that is what the snapshot records, not a promise it has none.</p>
+  <p id="foot-src"></p>
+</footer>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
